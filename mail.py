@@ -1,18 +1,27 @@
 import smtplib
-import login
 
-def send(frm, to, subject, msg):
-    message = """\
+from login import Login
+
+
+class Mailer:
+    def __init__(self, login, frm, server):
+        self.login = Login(login)
+        self.frm = frm
+        self.server = server
+    def send(self, to, subject, msg):
+        message = """\
 From: %s
 To: %s
 Subject: %s
 
 %s
-    """ % (frm, ", ".join(to), subject, msg)
-    s = smtplib.SMTP_SSL("smtp.zoho.com")
-    s.login(login.user, login.password)
-    s.sendmail(frm, to, message)
+    """ % (self.frm, ", ".join(to), subject, msg)
+        s = smtplib.SMTP_SSL(self.server)
+        s.login(self.login.user, self.login.password)
+        s.sendmail(self.frm, to, message)
 
 if __name__ == "__main__":
-    send("contato@procuratio.net.br", [ "cristianowerneraraujo@gmail.com", "contato@procuratio.net.br"],"A test", "A simple test")
+    m = Mailer(".login", "contato@procuratio.net.br", "smtp.zoho.com")
+    m.send([ "cristianowerneraraujo@gmail.com"],"A new test", "A simple test")
+
 
