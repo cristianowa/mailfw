@@ -1,0 +1,7 @@
+Copyright 2016 Cristiano Werner Araújo
+
+This is just a class for sending mails with less complications.
+
+It has a tiny security don't storing passwords in plain text, but is still a HUGE security risk, please be aware before using it...
+
+
